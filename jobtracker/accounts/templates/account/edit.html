@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Edytuj profil {% endblock %}
+
+{% block content %}
+    <h1>Edytuj profil</h1>
+    <div class="form">
+        <form action="." method='POST'>
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Zapisz">
+        </form>
+    </div>
+{% endblock %}

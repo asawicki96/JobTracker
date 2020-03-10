@@ -5,6 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
+from .forms import UserEditForm
+from braces.views import LoginRequiredMixin
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -22,3 +24,14 @@ class AccountRegisterView(CreateView):
         login(self.request, user)
         return result
 
+class UserEditView(View, LoginRequiredMixin):
+    def get(self, request):
+        form = UserEditForm(instance = request.user)
+        return render(request, 'account/edit.html', {'form': form})
+
+    def post(self, request):
+        form = UserEditForm(instance=request.user, data=request.POST)
+        
+        if form.is_valid():
+            form.save()
+        return redirect('index')
