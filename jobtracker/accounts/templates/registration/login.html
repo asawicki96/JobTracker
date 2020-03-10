@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Zaloguj {% endblock %}
+
+{% block content %}
+    <div id="login_form">
+        <h1>Logowanie</h1>
+        {% if form.errors %}
+            <p>Nazwa użytkownika lub hasło jest nieprawidłowe. Spróbuj ponownie.</p>
+        {% else %}
+            <p>Wypełnij poniższy formularz, aby się zalogować lub kliknij tutaj, aby się 
+                <a href="{% url 'register' %}"><b>Zarejestrować</b> </a>
+            </p>
+        {% endif %}
+        <form action="." method="POST">
+            <div id="inputs">
+                {{ form.as_p }}
+                {% csrf_token %}
+            </div>
+            <input type="submit" value="Zaloguj" id="login_button">
+        </form>
+    </div>
+{% endblock %}

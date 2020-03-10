@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} Rejestracja {% endblock %}
+
+{% block content %}
+    <h1>Rejestracja</h1>
+    <form action="." id="register_form" method='post'>
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Załóż konto">
+    </form>
+{% endblock %}

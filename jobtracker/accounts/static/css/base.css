@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Sen:400,700&display=swap');
+
+body {
+    margin:0 ;
+    font-family: 'Sen', sans-serif;
+    font-weight: 400;
+    color: rgb(27, 34, 34);
+    background-color: #dfe2df;
+    text-align: center;
+}
+
+#header {
+    background: #0a1a1e;
+    overflow: auto;
+    padding: 10px 20px;
+    border-bottom: 6px solid #c6cdc7;
+}
+
+#header .logo {
+    text-decoration:none;
+    font-family:'Roboto', sans-serif;
+    font-weight:300;
+    font-size:34px;
+    color:#fff;
+    float:left;
+}
+
+#header .menu {
+    list-style:none;
+    text-align:right;
+    margin:0;
+    padding:0;
+}
+
+#header a {
+    color:#fff;
+}
+
+.errorlist {
+    color:#ae2c2c;
+    margin:0;
+}
+
+
+#login_form {
+    margin: auto auto;
+    width: max-content;
+}
+
+
+#login_button {
+    display: block;
+    margin: auto auto ;
+}
+
+#logout a {
+    color:rgb(63, 20, 20);
+}
+
+#register_form {
+    display: block;
+    text-align: center;
+    width: 500px;
+    margin: auto auto;
+}
+
+#register_form li {
+    text-align: left;
+}
+
+#password_change_form {
+    width: max-content;
+    margin: auto auto;
+}
+
+#password_change_form li {
+    text-align: left;
+}
+
+.helptext {
+    padding-left:20px;
+    display: block;
+    text-align: left;
+}
