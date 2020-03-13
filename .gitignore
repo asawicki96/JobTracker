@@ -1,2 +1,5 @@
 jobtracker/db.sqlite3
 jobtracker/accounts/migrations
+jobtracker/offer/migrations
+jobtracker/tracker/migrations
+.vscode
