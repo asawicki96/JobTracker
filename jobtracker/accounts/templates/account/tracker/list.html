@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Moje Trackery {% endblock %}
+
+{% block content %}
+    <div class="list">
+        <h1>Moje trackery</h1>
+        {% for tracker in object_list %}
+            <div class="tracker_info">
+                <a href="{% url 'trakcer:tracker_detail' tracker.id %}"><h3>{{ tracker.keywords }}</h3></a>
+            </div>
+        {% empty %}
+            <p>
+                Nie utworzyłeś jeszcze żadnego trackera.
+                
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -77,8 +77,30 @@ body {
     text-align: left;
 }
 
+#content {
+    float: left;
+    width: 90%;
+}
+
 .helptext {
     padding-left:20px;
     display: block;
     text-align: left;
+}
+
+.tracker_info {
+    width: max-content;
+    margin: auto auto;
+}
+
+.nav {
+    float:left;
+    width: 100px;
+    height: 100px;
+    background-color: #39a0b9;
+}
+
+body h1 {
+    width: max-content;
+    margin: auto auto;
 }

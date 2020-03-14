@@ -11,4 +11,5 @@ urlpatterns = [
     path('password-change/done', auth.PasswordChangeDoneView.as_view(),
         name='password_change_done'),
     path('edit/', views.UserEditView.as_view(), name='edit'),
+    path('', views.DashboardView.as_view(), name='dashboard'),
 ]

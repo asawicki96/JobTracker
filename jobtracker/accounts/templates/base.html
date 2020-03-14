@@ -8,7 +8,7 @@
     </head>
     <body>
         <div id="header">
-            <a href="/" class="logo">Jobtracker</a>
+            <a href="/" class="logo">JobTracker</a>
             <ul class="menu">
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
@@ -17,6 +17,12 @@
                 {% endif %}
             </ul>
         </div>
+        {% if request.user.is_authenticated %}
+            <div class="nav">
+                <a href="{% url 'dashboard' %}"><div>Trackery</div></a>
+                <a href="{% url 'edit' %}"><div>Edytuj profil</div></a>
+            </div>
+        {% endif %}
         <div id="content">
             {% block content %}
             {% endblock %}

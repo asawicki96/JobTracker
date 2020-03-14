@@ -7,6 +7,8 @@ from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
 from .forms import UserEditForm
 from braces.views import LoginRequiredMixin
+from tracker.models import Tracker
+from django.views.generic.list import ListView
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -24,6 +26,19 @@ class AccountRegisterView(CreateView):
         login(self.request, user)
         return result
 
+
+class DashboardView(LoginRequiredMixin, ListView):
+    model = Tracker
+    paginate_by = 5
+    template_name = 'account/tracker/list.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(owner=self.request.user)
+
+    
+
+
 class UserEditView(View, LoginRequiredMixin):
     def get(self, request):
         form = UserEditForm(instance = request.user)
@@ -35,3 +50,4 @@ class UserEditView(View, LoginRequiredMixin):
         if form.is_valid():
             form.save()
         return redirect('index')
+
