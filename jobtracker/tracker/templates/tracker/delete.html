@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Usuń tracker {{ tracker }} {% endblock %}
+
+{% block content %}
+    <h1> Usuń {{ tracker }}</h1>
+    <p>Czy na pewno chcesz usunąć ten tracker?</p>
+    <form action="" method="POST">
+        <input type="hidden" value="{{ tracker.id }}" name="id">
+        {% csrf_token %}
+        <input type="submit" value = 'Usuń'>
+    </form>
+{% endblock %}
+

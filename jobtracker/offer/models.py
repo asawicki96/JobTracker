@@ -9,11 +9,11 @@ class Offer(models.Model):
     title = models.CharField(max_length=200)
     location = models.CharField(max_length=100)
     snippet = models.TextField(null=True, blank=True)
-    salary = models.IntegerField(null=True, blank=True)
+    salary = models.CharField(max_length=50, null=True, blank=True)
     source = models.CharField(max_length=100, blank=True, null=True)
     job_type = models.CharField(max_length=150, blank=True, null=True)
     link = models.URLField(max_length=350)
-    company = models.CharField(max_length=150)
+    company = models.CharField(max_length=150, null=True, blank=True)
     updated = models.DateTimeField()
     order = OrderField(blank=True, for_fields=['owner'])
     owner = models.ForeignKey(Tracker,

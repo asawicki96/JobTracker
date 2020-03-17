@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Utwórz tracker {% endblock %}
+
+{% block content %}
+    <h1>Utwórz tracker</h1>
+    <div class="form">
+        <form action="" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Utwórz">
+        </form>
+    </div>
+{% endblock %}

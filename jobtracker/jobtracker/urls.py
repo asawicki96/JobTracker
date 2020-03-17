@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('tracker/', include('tracker.urls', namespace='tracker')),
+    path('offer/', include('offer.urls', namespace="offer")),
     path('', views.IndexView.as_view(), name="index"),
 ]

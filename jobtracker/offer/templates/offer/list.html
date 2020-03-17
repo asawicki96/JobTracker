@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Ogłoszenia {% endblock %}
+
+{% block content %}
+    <a href="{% url 'offer:refresh' tracker.id %}"><h2>Refresh</h2></a>
+    {% for offer in offers %}
+        <div class="offer_container">
+            <div class="title">
+                <a href="{% url 'offer:detail' offer.id %}"><h3>{{ offer.title }}</h3></a>
+            </div>
+            <div class="location">
+                <p><b>Lokalizacja:</b> {{ offer.location }}</p>
+            </div>
+            <div class="salary">
+                <p><b>Stawka:</b> {{ offer.salary }} PLN</p>
+            </div>
+            <div class="snippet">
+                <p><b>Opis:</b> {{ offer.snippet|truncatechars:160 }}</p>
+            </div>
+            <div class="link">
+                <p><b>Link:</b> <a href="{{ offer.link }}">Przejdź do oferty</a></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

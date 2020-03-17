@@ -3,3 +3,4 @@ jobtracker/accounts/migrations
 jobtracker/offer/migrations
 jobtracker/tracker/migrations
 .vscode
+.env

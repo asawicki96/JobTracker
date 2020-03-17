@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 django-braces = "*"
+requests = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.8"

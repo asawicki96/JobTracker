@@ -9,10 +9,15 @@
             <div class="tracker_info">
                 <a href="{% url 'trakcer:tracker_detail' tracker.id %}"><h3>{{ tracker.keywords }}</h3></a>
             </div>
+            <div class="tracker_offer_list">
+                <b></b><a href=" {% url 'offer:offer_list' tracker.id %}">Zobacz listę ogłoszeń</a></b>
+            </div>
+            <div class="tracker_offer_list">
+                <a href=" {% url 'tracker:delete' tracker.id %}">Usuń</a>
+            </div>
         {% empty %}
             <p>
                 Nie utworzyłeś jeszcze żadnego trackera.
-                
             </p>
         {% endfor %}
     </div>

@@ -18,10 +18,11 @@
             </ul>
         </div>
         {% if request.user.is_authenticated %}
-            <div class="nav">
-                <a href="{% url 'dashboard' %}"><div>Trackery</div></a>
-                <a href="{% url 'edit' %}"><div>Edytuj profil</div></a>
-            </div>
+                <div class="sidenav">
+                    <a href="{% url 'dashboard' %}" class="nav_item"><div>Trackery</div></a>
+                    <a href="{% url 'edit' %}" class="nav_item"><div>Edytuj profil</div></a>
+                    <a href="{% url 'tracker:create' %}" class="nav_item"><div>Dodaj tracker</div></a>
+                </div>
         {% endif %}
         <div id="content">
             {% block content %}
