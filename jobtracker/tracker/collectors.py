@@ -20,6 +20,7 @@ class JoobleCollector(object):
         self.filtered_job_list = None
 
     def collect_jobs(self):
+        self.latest = self.set_latest()
         self.json_data = self.get_json_data()
         self.save_jobs(self.json_data)
 
