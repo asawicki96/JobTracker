@@ -5,7 +5,7 @@ from .fields import OrderField
 
 
 class Offer(models.Model):
-    foreign_identity = models.CharField(max_length=50, null=True, blank=True)
+    foreign_identity = models.IntegerField(null=True, blank=True)
     title = models.CharField(max_length=200)
     location = models.CharField(max_length=100)
     snippet = models.TextField(null=True, blank=True)

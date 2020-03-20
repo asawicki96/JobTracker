@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-from .collect import collect_jobs
+from .collectors import JoobleCollector
 
 # Create your views here.
 
@@ -23,7 +23,8 @@ class TrackerCreateView(LoginRequiredMixin, View):
             obj = form.save(commit=False)
             obj.owner = request.user
             obj.save()
-            collect_jobs(obj)
+            collector = JoobleCollector(obj)
+            collector.collect_jobs()
             return redirect('dashboard')
 
 
@@ -39,7 +40,9 @@ class TrackerEditView(LoginRequiredMixin, View):
         form = TrackerEditForm(instance=tracker, data=request.POST)
 
         if form.is_valid():
-            form.save()
+            obj = form.save()
+            collector = JoobleCollector(obj)
+            collector.collect_jobs()
         return redirect('dashboard')
 
     

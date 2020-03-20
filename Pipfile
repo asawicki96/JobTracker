@@ -10,6 +10,8 @@ django = "*"
 django-braces = "*"
 requests = "*"
 bs4 = "*"
+dateutil = "*"
+python-dateutil = "*"
 
 [requires]
 python_version = "3.8"

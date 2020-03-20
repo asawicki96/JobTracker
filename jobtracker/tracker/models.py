@@ -12,6 +12,7 @@ class Tracker(models.Model):
     page = models.IntegerField(null=True, blank=True)
     time = models.TimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    size = models.IntegerField(default=50, blank=True)
     
     class Meta:
         ordering = ['-created']

@@ -4,7 +4,7 @@ from tracker.models import Tracker
 from django.views import View
 from django.views.generic.list import ListView
 from braces.views import LoginRequiredMixin
-from tracker.collect import collect_jobs
+from tracker.collectors import JoobleCollector
 
 # Create your views here.
 
@@ -29,5 +29,7 @@ class OfferDetailView(LoginRequiredMixin, View):
 class OfferListRefresh(LoginRequiredMixin, View):
     def get(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
-        collect_jobs(tracker)
+        collector = JoobleCollector(tracker)
+        collector.update_jobs()
+        collector.delete_eldest_jobs()
         return redirect('offer:offer_list', tracker_id)
