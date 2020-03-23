@@ -10,8 +10,9 @@ django = "*"
 django-braces = "*"
 requests = "*"
 bs4 = "*"
-dateutil = "*"
 python-dateutil = "*"
+celery = {extras = ["redis"],version = "*"}
+redis = "*"
 
 [requires]
 python_version = "3.8"

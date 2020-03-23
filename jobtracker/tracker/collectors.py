@@ -22,7 +22,8 @@ class JoobleCollector(object):
     def collect_jobs(self):
         self.latest = self.set_latest()
         self.json_data = self.get_json_data()
-        self.save_jobs(self.json_data)
+        self.filtered_job_list = self.filter()
+        self.save_jobs(self.filtered_job_list)
 
     def update_jobs(self):
         self.offers = self.get_queryset()
@@ -90,22 +91,25 @@ class JoobleCollector(object):
 
 
     def filter(self):
-        stored_ids = self.offers.values_list('foreign_identity')
-        stored_ids = [ i[0] for i in stored_ids ]
+        stored_ids = None
+        
+        if self.offers:
+            stored_ids = self.offers.values_list('foreign_identity')
+            stored_ids = [ i[0] for i in stored_ids ]
         
         job_list = self.json_data.copy()
 
         for job in job_list:
             updated = self.parse_date(job['updated'])
-        
             if updated <= self.latest:
                 job_list = job_list[:(job_list.index(job))]
                 break
-        
-        for job in job_list:
-            f_id = job['id']
-            if f_id in stored_ids:
-                job_list.remove(job)
+
+        if stored_ids:        
+            for job in job_list:
+                f_id = job['id']
+                if f_id in stored_ids:
+                    job_list.remove(job)
         
         return job_list
 

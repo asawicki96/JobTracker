@@ -1,0 +1,23 @@
+{% extends 'tracker/email_base.html' %}
+
+{% block content %}
+    <h1>Nowe oferty</h1>
+    {% for job in new_jobs %}
+        <div id="job_info">
+            <h3>{{ job.title }}</h3>
+            {% if job.salary %}
+                <div id="job_salary">
+                    Stawka: {{ job.salary }} PLN
+                </div>
+            {% endif %}
+            {% if job.location %}
+                <div id="job_location">
+                    Lokalizacja: {{ job.location }}
+                </div>
+            {% endif %}
+            <div id="job_link">
+                Link: {{ job.link }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

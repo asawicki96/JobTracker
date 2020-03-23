@@ -13,12 +13,19 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from django.urls import reverse_lazy
 
+LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
+JOOBLE_API_KEY = os.getenv('JOOBLE_API_KEY')
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = True
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
-JOOBLE_API_KEY = os.getenv('JOOBLE_API_KEY')
 
 
 # Quick-start development settings - unsuitable for production
@@ -88,6 +95,9 @@ DATABASES = {
     }
 }
 
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
