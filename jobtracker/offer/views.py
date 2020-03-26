@@ -4,10 +4,12 @@ from tracker.models import Tracker
 from django.views import View
 from django.views.generic.list import ListView
 from braces.views import LoginRequiredMixin
-from tracker.tasks import update_jobs, send_mail
+from tracker.tasks import update_jobs
+import requests
 
 # Create your views here.
 
+""" Displays list of Offer objects belonging to one Tracker instance """
 
 class OfferListView(LoginRequiredMixin, View):
     def get(self, request, tracker_id):
@@ -18,17 +20,11 @@ class OfferListView(LoginRequiredMixin, View):
 
         return render(request, 'offer/list.html', context)
 
-class OfferDetailView(LoginRequiredMixin, View):
-    def get(self, request, offer_id):
-        offer = get_object_or_404(Offer, id=offer_id)
-
-        context = { 'offer': offer }
-
-        return render(request, 'offer/detail.html', context)
+""" Updates offers belonging to one Tracker instance and refreshes actual site """
 
 class OfferListRefresh(LoginRequiredMixin, View):
     def get(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
         update_jobs.delay(tracker.id)
-        send_mail.delay(tracker.id)
         return redirect('offer:offer_list', tracker_id)
+

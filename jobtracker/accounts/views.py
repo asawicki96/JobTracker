@@ -11,8 +11,12 @@ from tracker.models import Tracker
 from django.views.generic.list import ListView
 # Create your views here.
 
+""" Index view for unauthenticated users """
+
 class IndexView(TemplateView):
     template_name = 'base.html'
+
+""" Registration view """
 
 class AccountRegisterView(CreateView):
     template_name = 'registration/register.html'
@@ -26,6 +30,8 @@ class AccountRegisterView(CreateView):
         login(self.request, user)
         return result
 
+""" Dashboard view, defaultly diplays list of Tracker objects
+    belonging to current user """
 
 class DashboardView(LoginRequiredMixin, ListView):
     model = Tracker
@@ -36,8 +42,8 @@ class DashboardView(LoginRequiredMixin, ListView):
         qs = super().get_queryset()
         return qs.filter(owner=self.request.user)
 
-    
 
+""" User edit view """
 
 class UserEditView(View, LoginRequiredMixin):
     def get(self, request):
@@ -49,5 +55,5 @@ class UserEditView(View, LoginRequiredMixin):
         
         if form.is_valid():
             form.save()
-        return redirect('index')
+        return redirect('dashboard')
 

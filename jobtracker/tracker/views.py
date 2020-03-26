@@ -7,13 +7,21 @@ from django.views import View
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from .tasks import collect_jobs, update_jobs, send_mail
+
 # Create your views here.
 
+
 class TrackerCreateView(LoginRequiredMixin, View):
+    
+    """ Displays Tracker create form """
+
     def get(self, request):
         form = TrackerCreateForm()
         context = {'form': form}
         return render(request, 'tracker/create.html', context)
+
+    """ Validates incoming form and collect offers.
+        Redirects to dashboard. """
 
     def post(self, request):
         form = TrackerCreateForm(data=request.POST)
@@ -23,34 +31,47 @@ class TrackerCreateView(LoginRequiredMixin, View):
             obj.owner = request.user
             obj.save()
             collect_jobs.delay(obj.id)
-            send_mail.delay(obj.id)
             return redirect('dashboard')
 
 
 class TrackerEditView(LoginRequiredMixin, View):
     
+    """ Displays Tracker edit form """
+
     def get(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
         form = TrackerEditForm(instance=tracker)
         return render(request, 'tracker/detail.html', {'form': form})
     
+    """ Validates incoming form and save changes in Tracker object.
+        Deletes offers belonging. 
+        Collect new offers.
+        Redirects to dashboard. """
+
     def post(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
         form = TrackerEditForm(instance=tracker, data=request.POST)
 
         if form.is_valid():
             obj = form.save()
+            Offer.objects.filter(owner=obj).delete()
             collect_jobs.delay(obj.id)
+            
         return redirect('dashboard')
 
     
 class TrackerDeleteView(LoginRequiredMixin, View):
+
+    """ Displays delete confirmation button """
+
     def get(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
         context = { 'tracker': tracker }
 
         return render(request, 'tracker/delete.html', context)
     
+    """ Deletes tracker and redirects do dashboard """
+
     def post(self, request, tracker_id):
         tracker_id =request.POST.__getitem__('id')
         Tracker.objects.filter(id=tracker_id).delete()

@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
+""" Field containing int value which is representation of 
+    Offer object order belonging to one Tracker instance """
+
 class OrderField(models.PositiveIntegerField):
     
     def __init__(self, for_fields=None, *args, **kwargs):

@@ -17,6 +17,7 @@
                 {% endif %}
             </ul>
         </div>
+        <div id="content">
         {% if request.user.is_authenticated %}
                 <div class="sidenav">
                     <a href="{% url 'dashboard' %}" class="nav_item"><div>Trackery</div></a>
@@ -24,9 +25,8 @@
                     <a href="{% url 'tracker:create' %}" class="nav_item"><div>Dodaj tracker</div></a>
                 </div>
         {% endif %}
-        <div id="content">
-            {% block content %}
-            {% endblock %}
+        {% block content %}
+        {% endblock %}
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
