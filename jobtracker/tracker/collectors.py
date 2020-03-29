@@ -51,7 +51,8 @@ class JoobleCollector(object):
             latest_job = Offer.objects.filter(owner=self.tracker).latest('updated')
         except Exception as e:
             print(e)
-        
+            latest_job = None
+
         return latest_job
 
     """ Returns datetime object as date of latest offer,
@@ -76,6 +77,7 @@ class JoobleCollector(object):
             offers = Offer.objects.filter(owner=self.tracker)
         except Exception as e:
             print(e)
+            offers = None
         return offers
 
     """ Returns latest by order attr Offer object """

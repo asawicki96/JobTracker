@@ -11,10 +11,15 @@ from tracker.models import Tracker
 from django.views.generic.list import ListView
 # Create your views here.
 
-""" Index view for unauthenticated users """
+""" Index view redirects unauthenticated users to login site
+    and authenticated to dashboard """
 
-class IndexView(TemplateView):
-    template_name = 'base.html'
+class IndexView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+        else:
+            return redirect('login')
 
 """ Registration view """
 
@@ -30,7 +35,7 @@ class AccountRegisterView(CreateView):
         login(self.request, user)
         return result
 
-""" Dashboard view, defaultly diplays list of Tracker objects
+""" Dashboard view, implicitly diplays list of Tracker objects
     belonging to current user """
 
 class DashboardView(LoginRequiredMixin, ListView):

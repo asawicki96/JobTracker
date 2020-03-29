@@ -84,7 +84,6 @@ body {
     padding: 10px;
     margin-top: 20px;
     position: relative;
-
     
 }
 
@@ -96,16 +95,13 @@ body {
 
 .tracker_info {
     max-width: 400px;
-    margin: auto auto;
+    margin-left: 40%;
     background-color: #c6cdc7;
 }
 
-
 h1 {
-    width: max-content;
-    margin: auto auto;
+    margin-right: 5%;
 }
-
 .sidenav {
     width: 5%;
     background: #660033;

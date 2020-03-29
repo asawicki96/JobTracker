@@ -20,7 +20,7 @@ class OfferListView(LoginRequiredMixin, View):
 
         return render(request, 'offer/list.html', context)
 
-""" Updates offers belonging to one Tracker instance and refreshes actual site """
+""" Updates offers belonging to one Tracker instance and refreshes current site """
 
 class OfferListRefresh(LoginRequiredMixin, View):
     def get(self, request, tracker_id):

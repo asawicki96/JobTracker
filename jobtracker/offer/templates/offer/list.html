@@ -4,29 +4,33 @@
 
 {% block content %}
     <a href="{% url 'offer:refresh' tracker.id %}"><h2>Refresh</h2></a>
-    {% for offer in offers %}
-        <div class="offer_container">
-            <div class="title">
-                <a href="{{ offer.link }}"><h3>{{ offer.title }}</h3></a>
-            </div>
-            <div class="location">
-                <p><b>Lokalizacja:</b> {{ offer.location }}</p>
-            </div>
-            <div class="salary">
-                <p><b>Stawka:</b> {{ offer.salary }} PLN</p>
-            </div>
-            
-                <div class="snippet">
-                    <p>
-                        <b>Opis:</b> 
-                        {% autoescape off %}
-                            {{ offer.snippet|truncatechars:300 }}
-                        {% endautoescape %}
-                    </p>
+    {% if offers %}
+        {% for offer in offers %}
+            <div class="offer_container">
+                <div class="title">
+                    <a href="{{ offer.link }}"><h3>{{ offer.title }}</h3></a>
                 </div>
-            <div class="link">
-                <p><b>Link:</b> <a href="{{ offer.link }}">Przejdź do oferty</a></p>
+                <div class="location">
+                    <p><b>Lokalizacja:</b> {{ offer.location }}</p>
+                </div>
+                <div class="salary">
+                    <p><b>Stawka:</b> {{ offer.salary }} PLN</p>
+                </div>
+
+                    <div class="snippet">
+                        <p>
+                            <b>Opis:</b> 
+                            {% autoescape off %}
+                                {{ offer.snippet|truncatechars:300 }}
+                            {% endautoescape %}
+                        </p>
+                    </div>
+                <div class="link">
+                    <p><b>Link:</b> <a href="{{ offer.link }}">Przejdź do oferty</a></p>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+            <h1>Nie znaleziono jeszcze żadnych ofert spełniających podane kryteria</h1>
+    {% endif %}
 {% endblock %}

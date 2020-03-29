@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import Tracker 
 from braces.views import LoginRequiredMixin
-from .forms import TrackerEditForm, TrackerCreateForm
+from .forms import TrackerForm
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from .tasks import collect_jobs, update_jobs, send_mail
+from offer.models import Offer
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ class TrackerCreateView(LoginRequiredMixin, View):
     """ Displays Tracker create form """
 
     def get(self, request):
-        form = TrackerCreateForm()
+        form = TrackerForm()
         context = {'form': form}
         return render(request, 'tracker/create.html', context)
 
@@ -24,7 +25,7 @@ class TrackerCreateView(LoginRequiredMixin, View):
         Redirects to dashboard. """
 
     def post(self, request):
-        form = TrackerCreateForm(data=request.POST)
+        form = TrackerForm(data=request.POST)
 
         if form.is_valid():
             obj = form.save(commit=False)
@@ -32,6 +33,7 @@ class TrackerCreateView(LoginRequiredMixin, View):
             obj.save()
             collect_jobs.delay(obj.id)
             return redirect('dashboard')
+        return render(request, 'tracker/detail.html', {'form': form})
 
 
 class TrackerEditView(LoginRequiredMixin, View):
@@ -40,7 +42,7 @@ class TrackerEditView(LoginRequiredMixin, View):
 
     def get(self, request, tracker_id):
         tracker = get_object_or_404(Tracker, id=tracker_id)
-        form = TrackerEditForm(instance=tracker)
+        form = TrackerForm(instance=tracker)
         return render(request, 'tracker/detail.html', {'form': form})
     
     """ Validates incoming form and save changes in Tracker object.
@@ -49,15 +51,19 @@ class TrackerEditView(LoginRequiredMixin, View):
         Redirects to dashboard. """
 
     def post(self, request, tracker_id):
+        args = {}
         tracker = get_object_or_404(Tracker, id=tracker_id)
-        form = TrackerEditForm(instance=tracker, data=request.POST)
+        form = TrackerForm(instance=tracker, data=request.POST)
 
         if form.is_valid():
             obj = form.save()
-            Offer.objects.filter(owner=obj).delete()
+            eldest_offers = Offer.objects.filter(owner=obj)
+            if eldest_offers:
+                eldest_offers.delete()
+                
             collect_jobs.delay(obj.id)
-            
-        return redirect('dashboard')
+            return redirect('dashboard')
+        return render(request, 'tracker/detail.html', {'form': form})
 
     
 class TrackerDeleteView(LoginRequiredMixin, View):

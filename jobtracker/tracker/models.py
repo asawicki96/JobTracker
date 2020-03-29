@@ -4,10 +4,20 @@ from django.contrib.auth.models import User
 
 
 class Tracker(models.Model):
+
+    RADIUS_CHOICES = [
+        (0, 0),
+        (8, 8),
+        (16, 16),
+        (24, 24),
+        (40, 40),
+    ]
+
+
     owner = models.ForeignKey(User, related_name='trackers', on_delete=models.CASCADE)
     keywords = models.CharField(max_length=350)
     location = models.CharField(max_length=100, blank=True, null=True)
-    radius = models.IntegerField(null=True, blank=True)
+    radius = models.IntegerField(default=None, choices=RADIUS_CHOICES, null=True, blank=True)
     salary = models.IntegerField(null=True, blank=True)
     page = models.IntegerField(null=True, blank=True)
     time = models.TimeField(auto_now=True)
@@ -19,3 +29,5 @@ class Tracker(models.Model):
     
     def __str__(self):
         return 'Tracker: {}'.format(self.keywords)
+ 
+    
