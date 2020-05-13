@@ -2,7 +2,7 @@
 
 An application which allows users subscription of job offers posted on Jooble.com.
 
-Application uses https://pl.jooble.org/api/about API server for offers data. API provides searching by keywords, location etc...
+Application **uses https://pl.jooble.org/api/about API** server for offers data. API provides searching by keywords, location etc...
 Users can set up a periodically repeated query and view found jobs. Automatic checks are made by means **Celery** periodic tasks,
 each day at 00:03 o'clock. Program collect offers not older than 30 days at tracker(query) creation and updates data daily.
 Every second day it sends email containing new found offers to user. New offers are filtered by publish date (only newer
